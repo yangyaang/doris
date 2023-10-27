@@ -49,6 +49,7 @@ public class ReadListener implements ChannelListener<ConduitStreamSourceChannel>
         channel.getWorker().execute(() -> {
             ctx.setThreadLocalInfo();
             try {
+                // 执行
                 connectProcessor.processOnce();
                 if (!ctx.isKilled()) {
                     ctx.resumeAcceptQuery();

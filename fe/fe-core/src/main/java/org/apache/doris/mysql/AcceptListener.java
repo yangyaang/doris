@@ -82,6 +82,7 @@ public class AcceptListener implements ChannelListener<AcceptingChannel<StreamCo
                     context.setUserInsertTimeout(
                             context.getEnv().getAuth().getInsertTimeout(context.getQualifiedUser()));
                     ConnectProcessor processor = new ConnectProcessor(context);
+                    // 执行
                     context.startAcceptQuery(processor);
                 } catch (AfterConnectedException e) {
                     // do not need to print log for this kind of exception.

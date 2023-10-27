@@ -382,6 +382,7 @@ public class ConnectProcessor {
                 .setUser(ClusterNamespace.getNameFromFullName(ctx.getQualifiedUser()))
                 .setSqlHash(ctx.getSqlHash());
 
+        // 支持同时传多个sql语句过来
         List<StatementBase> stmts = null;
 
         // Nereids do not support prepare and execute now, so forbid prepare command, only process query command
@@ -580,6 +581,7 @@ public class ConnectProcessor {
                 ctx.initTracer("trace");
                 Span rootSpan = ctx.getTracer().spanBuilder("handleQuery").setNoParent().startSpan();
                 try (Scope scope = rootSpan.makeCurrent()) {
+                    // 查询
                     handleQuery(command);
                 } catch (Exception e) {
                     rootSpan.recordException(e);

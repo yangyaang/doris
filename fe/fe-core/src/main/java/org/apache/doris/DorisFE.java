@@ -169,6 +169,11 @@ public class DorisFE {
             // 1. HttpServer for HTTP Server
             // 2. FeServer for Thrift Server
             // 3. QeService for MySQL Server
+
+//            http_port = 8030  FE <--> FE 用户
+//            rpc_port = 9020   BE --> FE FE <--> FE
+//            query_port = 9030             FE 上的 mysql server 端口
+//            edit_log_port = 9010          FE 上的 bdbje 之间通信用的端口
             FeServer feServer = new FeServer(Config.rpc_port);
             feServer.start();
 
@@ -193,6 +198,7 @@ public class DorisFE {
             }
 
             if (options.enableQeService) {
+                // Query Server 处理前端mysql协议
                 QeService qeService = new QeService(Config.query_port, ExecuteEnv.getInstance().getScheduler());
                 qeService.start();
             }
